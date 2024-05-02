@@ -63,7 +63,7 @@ import DetectChanges from "./plugins/detect-change/detect-change.plugin";
 // See https://ckeditor.com/docs/ckeditor5/latest/installation/plugins/installing-plugins.html for details.
 
 // iTop console theme
-import './resources/console-theme.css';
+import './resources/styles/console-theme.css';
 
 class Editor extends ClassicEditor {
 	public static override builtinPlugins = [
