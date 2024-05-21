@@ -6,10 +6,10 @@
 	--ck-color-list-button-on-text: black;
 
 	--ck-z-default: 9999;
-	
+
 	/* Custom variables overloaded by backoffice or portals */
-	 --ck-text-tiny-font-size: 0.7rem;
-	 --ck-text-small-font-size: 0.85rem;
+	--ck-text-tiny-font-size: 0.7rem;
+	--ck-text-small-font-size: 0.85rem;
 	--ck-text-big-font-size: 1.4rem;
 	--ck-text-huge-font-size: 1.8rem;
 }

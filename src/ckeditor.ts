@@ -50,7 +50,7 @@ import { Undo } from '@ckeditor/ckeditor5-undo';
 import InsertHtml from './plugins/insert-html/insert-html.plugin';
 
 
-// combodo plugins
+// Combodo plugins
 import AppendITopClasses from "./plugins/append-itop-classes/append-itop-classes.plugin";
 import KeyboardShortcut from "./plugins/keyboard-shortcut/keyboard-shortcut.plugin";
 import MentionsMarkup from "./plugins/mentions-markup/mentions-markup.plugin";
@@ -62,8 +62,8 @@ import DetectChanges from "./plugins/detect-change/detect-change.plugin";
 // You can read more about extending the build with additional plugins in the "Installing plugins" guide.
 // See https://ckeditor.com/docs/ckeditor5/latest/installation/plugins/installing-plugins.html for details.
 
-// iTop console theme
-import './resources/styles/console-theme.css';
+// iTop default theme
+import './resources/styles/default-theme.css';
 
 class Editor extends ClassicEditor {
 	public static override builtinPlugins = [
