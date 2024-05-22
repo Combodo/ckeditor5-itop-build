@@ -5,6 +5,11 @@
 	--ck-color-list-button-hover-background: #EFF0EF;
 	--ck-color-list-button-on-text: black;
 
+	/* Toolbar buttons / components  downsize for better integration with UIs */
+	--ck-spacing-small: 0.35rem;
+	--ck-ui-component-min-height: 1rem;
+	--ck-icon-size: 1.5rem;
+
 	--ck-z-default: 9999;
 
 	/* Custom variables overloaded by backoffice or portals */
