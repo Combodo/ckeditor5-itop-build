@@ -6,10 +6,7 @@ import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
  * Appends ibo-is-html-content class
  */
 export default class AppendITopClasses extends Plugin {
-    // @ts-ignore
-    constructor(editor) {
-        super(editor);
-    }
+
     static get pluginName() {
         return 'AppendITopClasses';
     }

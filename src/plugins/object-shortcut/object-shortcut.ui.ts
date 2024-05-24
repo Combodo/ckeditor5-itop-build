@@ -1,12 +1,12 @@
 import { Plugin } from '@ckeditor/ckeditor5-core';
-import { ButtonView, ContextualBalloon, clickOutsideHandler } from '@ckeditor/ckeditor5-ui';
+import {ButtonView, ContextualBalloon, clickOutsideHandler} from '@ckeditor/ckeditor5-ui';
 import FormView from './object-shortcut.form-view';
 import './styles.css';
 
 // plugin icon
 const sPluginIconSVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M400 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48' +
-        ' 48' +
-        ' 48h352c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zm-32 252c0 6.6-5.4 12-12 12h-92v92c0 6.6-5.4 12-12 12h-56c-6.6 0-12-5.4-12-12v-92H92c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h92v-92c0-6.6 5.4-12 12-12h56c6.6 0 12 5.4 12 12v92h92c6.6 0 12 5.4 12 12v56z"/></svg>';
+    ' 48' +
+    ' 48h352c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zm-32 252c0 6.6-5.4 12-12 12h-92v92c0 6.6-5.4 12-12 12h-56c-6.6 0-12-5.4-12-12v-92H92c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h92v-92c0-6.6 5.4-12 12-12h56c6.6 0 12 5.4 12 12v92h92c6.6 0 12 5.4 12 12v56z"/></svg>';
 
 export default class ObjectShortcutUI extends Plugin {
     static get requires() {
@@ -25,7 +25,7 @@ export default class ObjectShortcutUI extends Plugin {
 
         editor.ui.componentFactory.add( 'object-shortcut', () => {
             const oButton = new ButtonView();
-            oButton.label = 'Insert Object Shortcut';
+            oButton.label = editor.config.get('objectShortcut.buttonLabel') as string ?? 'Insert Object Shortcut';
             oButton.tooltip = true;
             oButton.icon = sPluginIconSVG;
 
@@ -116,12 +116,6 @@ export default class ObjectShortcutUI extends Plugin {
 
     _hideUI() {
         if( this.oFormView !== undefined && this.oBalloon !== undefined){
-            // @ts-ignore
-            this.oFormView.oLabelInputView.set({value: null});
-            // @ts-ignore
-            this.oFormView.oClassInputView.set({value: null});
-            // @ts-ignore
-            this.oFormView.oReferenceInputView.set({value: null});
 
             if( this.oFormView.element !== null){
                 (<HTMLFormElement>this.oFormView.element).reset();
