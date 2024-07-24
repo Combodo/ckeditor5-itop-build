@@ -37,6 +37,7 @@ import { AutoLink, Link, LinkImage } from '@ckeditor/ckeditor5-link';
 import { List, ListProperties } from '@ckeditor/ckeditor5-list';
 import { Mention } from '@ckeditor/ckeditor5-mention';
 import { Paragraph } from '@ckeditor/ckeditor5-paragraph';
+import {PasteFromOffice} from "@ckeditor/ckeditor5-paste-from-office";
 import {
 	Table,
 	TableCaption,
@@ -45,9 +46,9 @@ import {
 	TableProperties,
 	TableToolbar
 } from '@ckeditor/ckeditor5-table';
-import { TextTransformation } from '@ckeditor/ckeditor5-typing';
 import { Undo } from '@ckeditor/ckeditor5-undo';
-
+import { RemoveFormat } from '@ckeditor/ckeditor5-remove-format';
+import { SourceEditing } from '@ckeditor/ckeditor5-source-editing';
 
 // Combodo plugins
 import AppendITopClasses from "./plugins/append-itop-classes/append-itop-classes.plugin";
@@ -60,12 +61,82 @@ import DetectChanges from "./plugins/detect-change/detect-change.plugin";
 import UpdateInputOnChange from "./plugins/update-input-on-change/update-input-on-change.plugin";
 import Disabler from "./plugins/disabler/disabler.plugin";
 import InsertHtml from './plugins/insert-html/insert-html.plugin';
+import InsertCarriageReturnAfterBlock from "./plugins/insert-carriage-return-after-block/insert-carriage-return-after-block.plugin";
 
 // You can read more about extending the build with additional plugins in the "Installing plugins" guide.
 // See https://ckeditor.com/docs/ckeditor5/latest/installation/plugins/installing-plugins.html for details.
 
 // iTop default theme
 import './resources/styles/default-theme.css';
+
+const transformationsConfig = {
+    // Remove the 'ellipsis' transformation loaded by the 'typography' group.
+    remove: [ 'ellipsis' ]
+}
+
+// Colors to be used in the different palettes (font color, table cell background color, table cell border color, ...)
+const colorsPalette = [
+    {
+        color: '#000000',
+        label: 'Black'
+    },
+    {
+        color: '#4D4D4D',
+        label: 'Dim grey'
+    },
+    {
+        color: '#999999',
+        label: 'Grey'
+    },
+    {
+        color: '#E6E6E6',
+        label: 'Light grey'
+    },
+    {
+        color: '#FFFFFF',
+        label: 'White'
+    },
+    {
+        color: '#E64D4D',
+        label: 'Red'
+    },
+    {
+        color: '#E6994D',
+        label: 'Orange'
+    },
+    {
+        color: '#E6E64D',
+        label: 'Yellow'
+    },
+    {
+        color: '#99E64D',
+        label: 'Light green'
+    },
+    {
+        color: '#4DE64D',
+        label: 'Green'
+    },
+    {
+        color: '#4DE699',
+        label: 'Aquamarine'
+    },
+    {
+        color: '#4DE6E6',
+        label: 'Turquoise'
+    },
+    {
+        color: '#4D99E6',
+        label: 'Light blue'
+    },
+    {
+        color: '#4D4DE6',
+        label: 'Blue'
+    },
+    {
+        color: '#994DE6',
+        label: 'Purple'
+    },
+];
 
 class Editor extends ClassicEditor {
 	public static override builtinPlugins = [
@@ -93,24 +164,21 @@ class Editor extends ClassicEditor {
 		IndentBlock,
 		Italic,
 		Link,
-		LinkImage,
 		List,
-		ListProperties,
 		Mention,
 		Paragraph,
-		PictureEditing,
+        PasteFromOffice,
 		Strikethrough,
-		Subscript,
-		Superscript,
 		Table,
 		TableCaption,
 		TableCellProperties,
 		TableColumnResize,
 		TableProperties,
 		TableToolbar,
-		TextTransformation,
 		Underline,
 		Undo,
+        RemoveFormat,
+        SourceEditing,
 
 		// combodo plugins
 		AppendITopClasses,
@@ -122,7 +190,8 @@ class Editor extends ClassicEditor {
 		InsertHtml,
 		DetectChanges,
         UpdateInputOnChange,
-        Disabler
+        Disabler,
+        InsertCarriageReturnAfterBlock
 	];
 
 	// default configuration editor
@@ -133,39 +202,48 @@ class Editor extends ClassicEditor {
 				'|',
 				'undo',
 				'redo',
+                '|',
+                'heading',
+                '|',
+                'alignment',
+                '|',
+                {
+                    label: 'Fonts',
+                    icon: 'text',
+                    items: ['fontfamily', 'fontSize', 'fontColor']
+                },
+                '|',
+                'bold',
+                'italic',
+                'underline',
+                'highlight'  ,
+                {
+                    label: 'More styles',
+                    items: ['strikethrough', 'RemoveFormat']
+                },
 				'|',
-				'bold',
-				'italic',
-				'underline',
-                'fontSize',
-                'fontColor',
-                'highlight',
-				{
-					label: 'More styles',
-					items: ['strikethrough', 'superscript', 'subscript' ]
-				},
-				'-',
+                'horizontalLine',
 				'link',
-				'object-shortcut',
 				'imageUpload',
-				'blockQuote',
 				'codeBlock',
 				'bulletedList',
 				'numberedList',
-				'insertTable'
+				'insertTable',
+                '|',
+                'SourceEditing',
 			],
 			shouldNotGroupWhenFull: true
 		},
 		language: 'en',
+        fontColor: {
+            // Colors are redefined to be in HEX instead of RGB in order to be supported by mail clients
+            colors: colorsPalette,
+        },
 		image: {
 			toolbar: [
                 'resizeImage:25',
                 'resizeImage:50',
                 'resizeImage:original',
-				'|',
-                'imageStyle:alignLeft',
-                'imageStyle:alignCenter',
-                'imageStyle:alignRight',
 				'|',
                 'toggleImageCaption',
 			],
@@ -197,7 +275,11 @@ class Editor extends ClassicEditor {
 				'tableProperties',
                 '|',
                 'toggleTableCaption'
-			]
+			],
+            tableCellProperties: {
+                borderColors: colorsPalette,
+                backgroundColors: colorsPalette,
+            },
 		},
 		htmlSupport: {
 			allow: [
@@ -214,13 +296,10 @@ class Editor extends ClassicEditor {
 		},
 		highlight: {
 			options: [
-				{
-					model: 'yellowMarker',
-					class: 'marker-yellow',
-					title: 'Yellow marker',
-					color: 'var(--ck-highlight-marker-yellow)',
-					type: 'marker'
-				},
+                { model: 'yellowMarker', class: 'marker-yellow', title: 'Yellow marker', color: '#FDFD77', type: 'marker' },
+                { model: 'greenMarker', class: 'marker-green', title: 'Green marker', color: '#62f962', type: 'marker' },
+                { model: 'pinkMarker', class: 'marker-pink', title: 'Pink marker', color: '#FC7899', type: 'marker' },
+                { model: 'blueMarker', class: 'marker-blue', title: 'Blue marker', color: '#72CCFD', type: 'marker' },
 			]
 		},
 		codeBlock: {
@@ -264,7 +343,7 @@ class Editor extends ClassicEditor {
 				{language: 'xml', label: 'XML'},
 				{language: 'yaml', label: 'YAML'}
 			]
-		}
+		},
 	};
 }
 
