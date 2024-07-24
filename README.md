@@ -32,5 +32,5 @@ In order to update iTop CKEditor's build you need to push your changes to github
 Then run the following command in iTop's root directory:
 
 ```
- npm install https://github.com/Combodo/ckeditor5-itop-build.git
+ npm install https://github.com/Combodo/ckeditor5-itop-build.git --omit=dev
 ```
