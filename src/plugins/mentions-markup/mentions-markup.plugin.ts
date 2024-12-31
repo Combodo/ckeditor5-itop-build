@@ -25,7 +25,8 @@ export default class MentionsMarkup extends Plugin {
                     href: true,
                     'data-role': true,
                     'data-object-class': true,
-                    'data-object-id': true
+                    'data-object-id': true,
+                    'data-object-key': true
                 }
             },
             model: {
@@ -35,6 +36,7 @@ export default class MentionsMarkup extends Plugin {
                         link: oViewItem.getAttribute( 'href' ),
                         id: oViewItem.getAttribute( 'data-object-id' ),
                         class_name: oViewItem.getAttribute( 'data-object-class' ),
+                        key: oViewItem.getAttribute( 'data-object-key' ),
                         mention: 'object-mention',
                     } );
                 }
@@ -56,6 +58,7 @@ export default class MentionsMarkup extends Plugin {
                     'data-role' : 'object-mention',
                     'data-object-class' : oModelAttributeValue.class_name,
                     'data-object-id' : oModelAttributeValue.id,
+                    'data-object-key': oModelAttributeValue.key,
                     'href': oModelAttributeValue.link
                 }, {
                     priority: 20,
