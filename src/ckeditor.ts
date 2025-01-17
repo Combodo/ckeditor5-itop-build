@@ -221,14 +221,21 @@ class Editor extends ClassicEditor {
                     label: 'More styles',
                     items: ['strikethrough', 'RemoveFormat']
                 },
-				'|',
+                '|',
                 'horizontalLine',
-				'link',
-				'imageUpload',
-				'codeBlock',
-				'bulletedList',
-				'numberedList',
-				'insertTable',
+                'link',
+                'imageUpload',
+                'codeBlock',
+                'insertTable',
+                {
+                    label: 'Lists',
+                    items: [
+                        'bulletedList',
+                        'numberedList',
+                        'outdent',
+                        'indent',
+                    ]
+                },
                 '|',
                 'SourceEditing',
 			],
@@ -238,6 +245,10 @@ class Editor extends ClassicEditor {
         fontColor: {
             // Colors are redefined to be in HEX instead of RGB in order to be supported by mail clients
             colors: colorsPalette,
+        },
+        indentBlock: {
+            offset: 1,
+            unit: 'em'
         },
 		image: {
 			toolbar: [
