@@ -216,11 +216,9 @@ class Editor extends ClassicEditor {
                 'bold',
                 'italic',
                 'underline',
-                'highlight'  ,
-                {
-                    label: 'More styles',
-                    items: ['strikethrough', 'RemoveFormat']
-                },
+                'highlight',
+                'strikethrough',
+                'RemoveFormat',
                 '|',
                 'horizontalLine',
                 'link',
