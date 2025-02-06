@@ -14,7 +14,7 @@ export default class InsertHtmlCommand extends Command {
         this.editor.model.change(writer => {
             const insertPosition = this.editor.model.document.selection.getFirstPosition();
             if(insertPosition !==null) {
-                writer.insert(modelFragment, insertPosition);
+                this.editor.model.insertContent(modelFragment, insertPosition);
             }
         });
     }
