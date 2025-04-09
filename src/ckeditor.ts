@@ -184,7 +184,6 @@ class Editor extends ClassicEditor {
 		AppendITopClasses,
 		KeyboardShortcut,
 		MentionsMarkup,
-		TriggerUpdateOnReady,
 		Maximize,
         // ObjectShortcut, // wait a clean implementation before adding it (mentions plugin allow this feature)
 		InsertHtml,
