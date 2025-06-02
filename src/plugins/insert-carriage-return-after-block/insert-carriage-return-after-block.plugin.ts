@@ -3,38 +3,61 @@ import Node from '@ckeditor/ckeditor5-engine/src/model/node';
 
 export default class InsertCarriageReturnAfterBlock extends Plugin {
     init() {
+
         const editor = this.editor;
 
-        // Array of block elements type to check for
+        // checks if the node is one of the block elements we want a newline after
         const blockElements = ['codeBlock', 'div', 'pre'];
+        const isBlockElement = (node: Node) => {
+            return blockElements.some(element => node.is('element', element));
+        };
 
-        // This function checks if the inserted element is one of the block elements we want a newline after
-        const isBlockElement = (node: Node | null) => {
-            return node ? blockElements.some(element => node.is('element', element)) : false;
+        // checks if the node is a code block
+        const isCodeBlockElement = (node: Node) => {
+            return node.is('element', 'codeBlock');
         };
 
         // Listen to changes in the model
         editor.model.document.on('change:data', (evt, batch) => {
             if (batch.isLocal) {
-                const changes = Array.from(editor.model.document.differ.getChanges());
+
+                // store current cursor position
                 const currentCursorPosition = editor.model.document.selection.getFirstPosition();
-                
-                // Iterate over the changes and insert a newline after the block element when needed
-                changes.forEach(change => {
-                    if (change.type === 'insert' &&  isBlockElement(change.position.nodeAfter)) {
+
+                // retrieve the last change
+                const change = editor.model.document.differ.getChanges().pop();
+
+                // Check if the change is an insertion and if the inserted node is a block element
+                if (change !== undefined && change.type === 'insert' && change.position.nodeAfter !== null && isBlockElement(change.position.nodeAfter)) {
+
+                    let insertParapgraphAfter = false;
+
+                    if (change.position.nodeAfter.nextSibling !== null) {
+                        // case 1: nex sibling is a block code
+                        insertParapgraphAfter = isCodeBlockElement(change.position.nodeAfter.nextSibling);
+                    } else {
+                        // case 2: nex sibling is empty
+                        insertParapgraphAfter = true;
+                    }
+
+                    if(insertParapgraphAfter){
+
+                        // Insert a newline after the block element
+                        const p = editor.model.createPositionAfter(change.position.nodeAfter);
+                        editor.model.change(writer =>  {
+                            editor.execute('insertParagraph', {
+                                position: p,
+                            });
+                        });
+
+                        // Restore the cursor position (most likely in the created block)
                         editor.model.change(writer => {
-                            const position = change.position.getShiftedBy(change.length);
-                            // Insert a newline after the block element
-                            editor.execute( 'insertParagraph', {
-                                position: position,
-                            } );
+                            writer.setSelection(currentCursorPosition);
                         });
                     }
-                });
-                // Restore the cursor position (most likely in the created block)
-                editor.model.change(writer => {
-                    writer.setSelection(currentCursorPosition);
-                });
+
+                }
+
             }
         });
     }
