@@ -33,9 +33,4 @@ export default class DetectChanges extends Plugin {
     static get pluginName() {
         return 'DetectChanges';
     }
-
-    // Needed as InsertCarriageReturnAfterBlock will possibly change data on initialization if there's a block in the content, so we need to make sure it's loaded first
-    static get requires() {
-        return [ InsertCarriageReturnAfterBlock ];
-    }
 }
