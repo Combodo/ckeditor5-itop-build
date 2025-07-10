@@ -7,6 +7,8 @@ export default class UpdateInputOnChange extends Plugin {
         return 'UpdateInputOnChange';
     }
 
+    private debounceTimeout: number | undefined;
+
     init() {
 
         // retrieve editor instance
@@ -17,13 +19,18 @@ export default class UpdateInputOnChange extends Plugin {
 
             // update input when data change
             oEditor.model.document.on('change:data', (event) => {
-
-                // only when input and textarea are different
-                if(oInputElement.value !== oEditor.getData()) {
-                    oInputElement.value = oEditor.getData();
-                    // const oEvent = new Event('change');
-                    // oInputElement.dispatchEvent(oEvent);
+                // Clear the existing timeout if there is one
+                if (this.debounceTimeout) {
+                    clearTimeout(this.debounceTimeout);
                 }
+
+                // Set a new timeout to call the update function after X seconds
+                this.debounceTimeout = window.setTimeout(() => {
+                    // only when input and textarea are different
+                    if (oInputElement.value !== oEditor.getData()) {
+                        oInputElement.value = oEditor.getData();
+                    }
+                }, 2000); // Set the delay to 2 seconds (2000 milliseconds)
             });
 
         }
