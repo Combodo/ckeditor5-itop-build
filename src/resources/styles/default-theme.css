@@ -108,3 +108,46 @@
 .ck-content .marker-blue {
 	background-color: #72CCFD;
 }
+
+/* Fullscreen */
+.ck.ck-fullscreen__main-wrapper .ck-fullscreen__sidebar {
+    display: none;
+}
+
+.ck-fullscreen__editable {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.ck-table-show-hidden-borders {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    border: 0;
+    padding: 2em;
+    flex-grow: 1;
+}
+
+.ck-fullscreen__main-wrapper .ck-fullscreen__editable-wrapper {
+    --ck-fullscreen-editor-top-margin: 0;
+    --ck-fullscreen-editor-bottom-margin: 0;
+    flex-grow: 1;
+}
+
+.ck-fullscreen__main-wrapper .ck-fullscreen__editable::after {
+    display: none;
+}
+
+.ck.ck-fullscreen__right-edge {
+    margin-left: 0;
+}
+
+.ck-fullscreen__main-wrapper .ck-fullscreen__editable .ck.ck-editor__editable:not(.ck-editor__nested-editable) {
+    height: 100%;
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+}

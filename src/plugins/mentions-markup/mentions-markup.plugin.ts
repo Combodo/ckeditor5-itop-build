@@ -1,5 +1,5 @@
-import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
-import {Element} from "@ckeditor/ckeditor5-engine";
+import { Plugin } from '@ckeditor/ckeditor5-core';
+import { type ViewElement } from '@ckeditor/ckeditor5-engine';
 
 /**
  * MentionsMarkup Plugin.
@@ -31,8 +31,8 @@ export default class MentionsMarkup extends Plugin {
             },
             model: {
                 key: 'mention',
-                value: (oViewItem: Element) => {
-                    return oEditor.plugins.get( 'Mention' ).toMentionAttribute( oViewItem, {
+                value: (oViewItem: ViewElement) => {
+                    return ( oEditor.plugins.get( 'Mention' ) as any ).toMentionAttribute( oViewItem as any, {
                         link: oViewItem.getAttribute( 'href' ),
                         id: oViewItem.getAttribute( 'data-object-id' ),
                         class_name: oViewItem.getAttribute( 'data-object-class' ),
@@ -47,7 +47,7 @@ export default class MentionsMarkup extends Plugin {
         // convert model > view
         oEditor.conversion.for( 'downcast' ).attributeToElement( {
             model: 'mention',
-            view: ( oModelAttributeValue, { writer } ) => {
+            view: ( oModelAttributeValue: any, { writer }: { writer: any } ) => {
 
                 // Do not convert empty attributes (lack of value means no mention).
                 if ( !oModelAttributeValue ) {
@@ -69,4 +69,3 @@ export default class MentionsMarkup extends Plugin {
         } );
     }
 }
-

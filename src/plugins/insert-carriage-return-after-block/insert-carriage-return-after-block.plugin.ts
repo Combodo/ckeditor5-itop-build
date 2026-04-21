@@ -1,5 +1,5 @@
-import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
-import Node from '@ckeditor/ckeditor5-engine/src/model/node';
+import { Plugin } from '@ckeditor/ckeditor5-core';
+import { type Batch, type ModelNode, type ModelWriter } from '@ckeditor/ckeditor5-engine';
 
 export default class InsertCarriageReturnAfterBlock extends Plugin {
     init() {
@@ -8,17 +8,17 @@ export default class InsertCarriageReturnAfterBlock extends Plugin {
 
         // checks if the node is one of the block elements we want a newline after
         const blockElements = ['codeBlock', 'div', 'pre'];
-        const isBlockElement = (node: Node) => {
+        const isBlockElement = (node: ModelNode) => {
             return blockElements.some(element => node.is('element', element));
         };
 
         // checks if the node is a code block
-        const isCodeBlockElement = (node: Node) => {
+        const isCodeBlockElement = (node: ModelNode) => {
             return node.is('element', 'codeBlock');
         };
 
         // Listen to changes in the model
-        editor.model.document.on('change:data', (evt, batch) => {
+        editor.model.document.on('change:data', (evt, batch: Batch) => {
             if (batch.isLocal) {
 
                 // store current cursor position
@@ -44,14 +44,14 @@ export default class InsertCarriageReturnAfterBlock extends Plugin {
 
                         // Insert a newline after the block element
                         const p = editor.model.createPositionAfter(change.position.nodeAfter);
-                        editor.model.change(writer =>  {
+                        editor.model.change((writer: ModelWriter) =>  {
                             editor.execute('insertParagraph', {
                                 position: p,
                             });
                         });
 
                         // Restore the cursor position (most likely in the created block)
-                        editor.model.change(writer => {
+                        editor.model.change((writer: ModelWriter) => {
                             writer.setSelection(currentCursorPosition);
                         });
                     }

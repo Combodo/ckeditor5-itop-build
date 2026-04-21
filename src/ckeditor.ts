@@ -23,6 +23,7 @@ import { Heading, Title } from '@ckeditor/ckeditor5-heading';
 import { Highlight } from '@ckeditor/ckeditor5-highlight';
 import { HorizontalLine } from '@ckeditor/ckeditor5-horizontal-line';
 import { GeneralHtmlSupport } from '@ckeditor/ckeditor5-html-support';
+import { Fullscreen } from '@ckeditor/ckeditor5-fullscreen';
 import {
 	Image,
 	ImageCaption,
@@ -55,7 +56,6 @@ import AppendITopClasses from "./plugins/append-itop-classes/append-itop-classes
 import KeyboardShortcut from "./plugins/keyboard-shortcut/keyboard-shortcut.plugin";
 import MentionsMarkup from "./plugins/mentions-markup/mentions-markup.plugin";
 import TriggerUpdateOnReady from "./plugins/trigger-update-on-ready/trigger-update-on-ready.plugin";
-import Maximize from './plugins/maximize/maximize.plugin';
 import ObjectShortcut from './plugins/object-shortcut/object-shortcut.plugin';
 import DetectChanges from "./plugins/detect-change/detect-change.plugin";
 import UpdateInputOnChange from "./plugins/update-input-on-change/update-input-on-change.plugin";
@@ -67,6 +67,7 @@ import InsertCarriageReturnAfterBlock from "./plugins/insert-carriage-return-aft
 // See https://ckeditor.com/docs/ckeditor5/latest/installation/plugins/installing-plugins.html for details.
 
 // iTop default theme
+import 'ckeditor5/ckeditor5.css';
 import './resources/styles/default-theme.css';
 
 const transformationsConfig = {
@@ -185,8 +186,8 @@ class Editor extends ClassicEditor {
 		KeyboardShortcut,
 		MentionsMarkup,
 		TriggerUpdateOnReady,
-		Maximize,
-        // ObjectShortcut, // wait a clean implementation before adding it (mentions plugin allow this feature)
+		Fullscreen,
+		// ObjectShortcut, // wait a clean implementation before adding it (mentions plugin allow this feature)
 		InsertHtml,
 		DetectChanges,
         UpdateInputOnChange,
@@ -198,7 +199,7 @@ class Editor extends ClassicEditor {
 	public static override defaultConfig: EditorConfig = {
 		toolbar: {
 			items: [
-				'maximize',
+				'fullscreen',
 				'|',
 				'undo',
 				'redo',
@@ -353,6 +354,11 @@ class Editor extends ClassicEditor {
 				{language: 'yaml', label: 'YAML'}
 			]
 		},
+        fullscreen: {
+            menuBar: {
+                isVisible: false
+            }
+        },
 	};
 }
 

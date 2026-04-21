@@ -10,7 +10,7 @@ import {
     ButtonView,
     submitHandler,
 } from '@ckeditor/ckeditor5-ui';
-import { icons } from '@ckeditor/ckeditor5-core';
+import { IconCheck, IconCancel } from '@ckeditor/ckeditor5-icons';
 import{ Locale } from '@ckeditor/ckeditor5-utils';
 
 export default class FormView extends View {
@@ -31,11 +31,11 @@ export default class FormView extends View {
         super( oLocale );
 
         // save button
-        this.oSaveButtonView = this._createButton( 'Save', icons.check, 'ck-button-save' );
+        this.oSaveButtonView = this._createButton( 'Save', IconCheck, 'ck-button-save' );
         this.oSaveButtonView.type = 'submit';
 
         // cancel button
-        this.oCancelButtonView = this._createButton( 'Cancel', icons.cancel, 'ck-button-cancel' );
+        this.oCancelButtonView = this._createButton( 'Cancel', IconCancel, 'ck-button-cancel' );
         this.oCancelButtonView.delegate( 'execute' ).to( this, 'cancel' );
 
         // create input fields

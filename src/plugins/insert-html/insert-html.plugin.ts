@@ -1,4 +1,4 @@
-import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
+import { Plugin } from '@ckeditor/ckeditor5-core';
 import InsertHtmlCommand from "./insert-html.command";
 
 /**
@@ -20,4 +20,3 @@ export default class InsertHtml extends Plugin {
         oEditor.commands.add( 'insert-html', new InsertHtmlCommand(oEditor) );
     }
 }
-

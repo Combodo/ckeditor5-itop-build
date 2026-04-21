@@ -1,5 +1,5 @@
-import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
-import ButtonView from '@ckeditor/ckeditor5-ui/src/button/buttonview';
+import { Plugin } from '@ckeditor/ckeditor5-core';
+import { ButtonView } from '@ckeditor/ckeditor5-ui';
 
 // plugin icons
 const sMaximizeIconSVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M448 344v112a23.9 23.9 0 0 1 -24 24H312c-21.4' +
