@@ -7377,8 +7377,6 @@ div.ck.ck-balloon-panel.ck-mention-balloon {
 .ck.ck-editor__editable.ck-restricted-editing_mode_restricted div.restricted-editing-exception .ck-widget__type-around {
   display: initial;
 }
-
-/*# sourceMappingURL=ckeditor5.css.map */
 /**
  * This file contains CKEditor 5 default theme styles.
  * "Default theme" means common styles for all GUIs (backoffice, portal, ...)
@@ -7490,6 +7488,7 @@ div.ck.ck-balloon-panel.ck-mention-balloon {
 	background-color: #72CCFD;
 }
 
+/* Fullscreen */
 .ck.ck-fullscreen__main-wrapper .ck-fullscreen__sidebar {
     display: none;
 }

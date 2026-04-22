@@ -13,7 +13,9 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyPlugin = require( 'copy-webpack-plugin' );
 
 module.exports = {
-	devtool: 'source-map',
+    /*
+	devtool: 'source-map', // Uncomment to build a development version of the editor. It will be much bigger than the production version, but it will be easier to debug.
+    */
 	performance: { hints: false },
 
 	entry: path.resolve( __dirname, 'src', 'ckeditor.ts' ),
@@ -50,10 +52,6 @@ module.exports = {
 		}),
 		new CopyPlugin( {
 			patterns: [
-				{
-					from: path.resolve( __dirname, 'node_modules/ckeditor5/dist/translations/*.js' ),
-					to: 'translations/[name][ext]'
-				},
 				{
 					from: path.resolve( __dirname, 'node_modules/ckeditor5/dist/translations/*.umd.js' ),
 					to: 'translations/[name][ext]'
