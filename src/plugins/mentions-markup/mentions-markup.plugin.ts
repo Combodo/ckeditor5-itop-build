@@ -47,7 +47,7 @@ export default class MentionsMarkup extends Plugin {
         // convert model > view
         oEditor.conversion.for( 'downcast' ).attributeToElement( {
             model: 'mention',
-            view: ( oModelAttributeValue: any, { writer }: { writer: any } ) => {
+            view: ( oModelAttributeValue: any, { writer, options } ) => {
 
                 // Do not convert empty attributes (lack of value means no mention).
                 if ( !oModelAttributeValue ) {
@@ -59,7 +59,9 @@ export default class MentionsMarkup extends Plugin {
                     'data-object-class' : oModelAttributeValue.class_name,
                     'data-object-id' : oModelAttributeValue.id,
                     'data-object-key': oModelAttributeValue.key,
-                    'href': oModelAttributeValue.link
+                    'href': oModelAttributeValue.link,
+                    // Omit `data-mention-uid` in clipboard (copy/cut) to prevent UIDs duplication.
+                    ...( !options.isClipboardPipeline && { 'data-mention-uid': oModelAttributeValue.uid } )
                 }, {
                     priority: 20,
                     id: oModelAttributeValue.uid
