@@ -31,8 +31,8 @@ import {
 	ImageUpload
 } from '@ckeditor/ckeditor5-image';
 import { Indent, IndentBlock } from '@ckeditor/ckeditor5-indent';
-import { AutoLink, Link, LinkImage } from '@ckeditor/ckeditor5-link';
-import { List, ListProperties } from '@ckeditor/ckeditor5-list';
+import { AutoLink, Link } from '@ckeditor/ckeditor5-link';
+import { List } from '@ckeditor/ckeditor5-list';
 import { Mention } from '@ckeditor/ckeditor5-mention';
 import { Paragraph } from '@ckeditor/ckeditor5-paragraph';
 import {PasteFromOffice} from "@ckeditor/ckeditor5-paste-from-office";
@@ -53,7 +53,6 @@ import AppendITopClasses from "./plugins/append-itop-classes/append-itop-classes
 import KeyboardShortcut from "./plugins/keyboard-shortcut/keyboard-shortcut.plugin";
 import MentionsMarkup from "./plugins/mentions-markup/mentions-markup.plugin";
 import TriggerUpdateOnReady from "./plugins/trigger-update-on-ready/trigger-update-on-ready.plugin";
-import ObjectShortcut from './plugins/object-shortcut/object-shortcut.plugin';
 import DetectChanges from "./plugins/detect-change/detect-change.plugin";
 import UpdateInputOnChange from "./plugins/update-input-on-change/update-input-on-change.plugin";
 import Disabler from "./plugins/disabler/disabler.plugin";
