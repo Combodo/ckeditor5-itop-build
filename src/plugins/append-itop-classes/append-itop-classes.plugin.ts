@@ -1,4 +1,4 @@
-import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
+import { Plugin } from '@ckeditor/ckeditor5-core';
 
 /**
  * AppendITopClasses Plugin.
@@ -17,7 +17,7 @@ export default class AppendITopClasses extends Plugin {
         const oEditor = this.editor;
 
         // appends ibo-is-html-content (backoffice) & ipb-is-html-content (portal) classes
-        oEditor.editing.view.change( oWriter => {
+        oEditor.editing.view.change( ( oWriter: any ) => {
             const oRootElement = oEditor.editing.view.document.getRoot();
             if(oRootElement !== null){
                 // Add the proper class depending on the GUI we are in
@@ -31,4 +31,3 @@ export default class AppendITopClasses extends Plugin {
         });
     }
 }
-

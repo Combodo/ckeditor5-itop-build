@@ -1,4 +1,4 @@
-import { Plugin, type Editor } from 'ckeditor5/src/core.js';
+import { Plugin, type Editor } from '@ckeditor/ckeditor5-core';
 import iTopDataProcessor from "./itop-data-processor";
 import InsertCarriageReturnAfterBlock from "../insert-carriage-return-after-block/insert-carriage-return-after-block.plugin";
 

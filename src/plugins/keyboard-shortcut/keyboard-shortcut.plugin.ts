@@ -1,4 +1,4 @@
-import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
+import { Plugin } from '@ckeditor/ckeditor5-core';
 
 /**
  * KeyboardShortcut Plugin.
@@ -17,7 +17,7 @@ export default class KeyboardShortcut extends Plugin {
         const oEditor = this.editor;
 
         // Dispatch submit event on the closest editor form when Ctrl+Enter pressed
-        oEditor.keystrokes.set('Ctrl+Enter', (data, stop) => {
+        oEditor.keystrokes.set('Ctrl+Enter', (data: unknown, stop: () => void) => {
             if (oEditor.ui.element !== null) {
                 const oForm = oEditor.ui.element.closest('form');
                 if (oForm !== null) {

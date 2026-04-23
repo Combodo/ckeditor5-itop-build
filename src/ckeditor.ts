@@ -10,8 +10,6 @@ import {
 	Bold,
 	Italic,
 	Strikethrough,
-	Subscript,
-	Superscript,
 	Underline
 } from '@ckeditor/ckeditor5-basic-styles';
 import { BlockQuote } from '@ckeditor/ckeditor5-block-quote';
@@ -19,22 +17,22 @@ import { CodeBlock } from '@ckeditor/ckeditor5-code-block';
 import type { EditorConfig } from '@ckeditor/ckeditor5-core';
 import { Essentials } from '@ckeditor/ckeditor5-essentials';
 import { FontBackgroundColor, FontColor, FontFamily, FontSize } from '@ckeditor/ckeditor5-font';
-import { Heading, Title } from '@ckeditor/ckeditor5-heading';
+import { Heading } from '@ckeditor/ckeditor5-heading';
 import { Highlight } from '@ckeditor/ckeditor5-highlight';
 import { HorizontalLine } from '@ckeditor/ckeditor5-horizontal-line';
 import { GeneralHtmlSupport } from '@ckeditor/ckeditor5-html-support';
+import { Fullscreen } from '@ckeditor/ckeditor5-fullscreen';
 import {
 	Image,
 	ImageCaption,
 	ImageResize,
 	ImageStyle,
 	ImageToolbar,
-	ImageUpload,
-	PictureEditing
+	ImageUpload
 } from '@ckeditor/ckeditor5-image';
 import { Indent, IndentBlock } from '@ckeditor/ckeditor5-indent';
-import { AutoLink, Link, LinkImage } from '@ckeditor/ckeditor5-link';
-import { List, ListProperties } from '@ckeditor/ckeditor5-list';
+import { AutoLink, Link } from '@ckeditor/ckeditor5-link';
+import { List } from '@ckeditor/ckeditor5-list';
 import { Mention } from '@ckeditor/ckeditor5-mention';
 import { Paragraph } from '@ckeditor/ckeditor5-paragraph';
 import {PasteFromOffice} from "@ckeditor/ckeditor5-paste-from-office";
@@ -55,8 +53,6 @@ import AppendITopClasses from "./plugins/append-itop-classes/append-itop-classes
 import KeyboardShortcut from "./plugins/keyboard-shortcut/keyboard-shortcut.plugin";
 import MentionsMarkup from "./plugins/mentions-markup/mentions-markup.plugin";
 import TriggerUpdateOnReady from "./plugins/trigger-update-on-ready/trigger-update-on-ready.plugin";
-import Maximize from './plugins/maximize/maximize.plugin';
-import ObjectShortcut from './plugins/object-shortcut/object-shortcut.plugin';
 import DetectChanges from "./plugins/detect-change/detect-change.plugin";
 import UpdateInputOnChange from "./plugins/update-input-on-change/update-input-on-change.plugin";
 import Disabler from "./plugins/disabler/disabler.plugin";
@@ -67,6 +63,7 @@ import InsertCarriageReturnAfterBlock from "./plugins/insert-carriage-return-aft
 // See https://ckeditor.com/docs/ckeditor5/latest/installation/plugins/installing-plugins.html for details.
 
 // iTop default theme
+import 'ckeditor5/ckeditor5.css';
 import './resources/styles/default-theme.css';
 
 const transformationsConfig = {
@@ -185,8 +182,8 @@ class Editor extends ClassicEditor {
 		KeyboardShortcut,
 		MentionsMarkup,
 		TriggerUpdateOnReady,
-		Maximize,
-        // ObjectShortcut, // wait a clean implementation before adding it (mentions plugin allow this feature)
+		Fullscreen,
+		// ObjectShortcut, // wait a clean implementation before adding it (mentions plugin allow this feature)
 		InsertHtml,
 		DetectChanges,
         UpdateInputOnChange,
@@ -198,7 +195,7 @@ class Editor extends ClassicEditor {
 	public static override defaultConfig: EditorConfig = {
 		toolbar: {
 			items: [
-				'maximize',
+				'fullscreen',
 				'|',
 				'undo',
 				'redo',
@@ -353,6 +350,11 @@ class Editor extends ClassicEditor {
 				{language: 'yaml', label: 'YAML'}
 			]
 		},
+        fullscreen: {
+            menuBar: {
+                isVisible: false
+            }
+        },
 	};
 }
 
